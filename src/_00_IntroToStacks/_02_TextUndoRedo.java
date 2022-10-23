@@ -54,36 +54,45 @@ public class _02_TextUndoRedo implements KeyListener{
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
-		Char = e.getKeyChar();
-		//characters.push(Char);
-		text.setText(text.getText() + Char);
-		//text.setText(text.getText() + characters);
 		
-		if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
-			//characters.pop();
-			//jlabel.setText(k.subString(0,kl));
-			delCharacters.push(Char);
-			//System.out.println(delCharacters);
-			
-			char[] strChars = text.getText().toCharArray();
-			int i = strChars.length;
-			strChars[i].delete();
-		}
 		
-		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-			delCharacters.pop();
-			//characters.push(Char);
-			text.setText(text.getText() + Char);
-		}
 	}
+	
+	
 
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
+		System.out.println(e.getKeyCode());
 		
+		if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+			
+			//characters.pop();
+			//jlabel.setText(k.subString(0,kl));
+			//Char = e.getKeyChar();
+			delCharacters.push(text.getText().charAt(text.getText().length()-1));
+			System.out.println(delCharacters);
+			//System.out.println(text.getText());
+			text.setText(text.getText().substring(0, text.getText().length()-1));
+			//System.out.println(text.getText());
+			//char[] strChars = text.getText().toCharArray();
+			//int i = strChars.length;
+			
+		}
+		else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+			Char = delCharacters.pop();
+			//characters.push(Char);
+			text.setText(text.getText() + Char);
 	}
-
+		
+		else {
+			Char = e.getKeyChar();
+			//characters.push(Char);
+			text.setText(text.getText() + Char);
+			//text.setText(text.getText() + characters);
+}
+	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
