@@ -50,8 +50,13 @@ for (int i = 0; i < 100; i++) {
         //    Note: you have to use the capitalized Double and not double
 ArrayDeque<Double> queue = new ArrayDeque<Double>();
         // 4. Pop off 5 elements from the Stack and add them to the Queue 
+while (doubles.size() > 0 || queue.size() > 0) {
+
+	
 for (int i = 0; i < 5; i++) {
+	if (doubles.size() > 0){
 	queue.add(doubles.pop());
+	}
 }
         // 5. Print and remove a random number of elements, from 1 to 5 elements,
         //    from the front of the Queue. Example:
@@ -60,15 +65,25 @@ for (int i = 0; i < 5; i++) {
 int removed = ran.nextInt(5);
 System.out.println("removing " + removed + " elements from queue: ");
 for (int i = 0; i < removed; i++) {
-	queue.remove();
-	//System.out.println(queue.remove());
+	if (queue.size() > 0) {
+	double storage = queue.remove();
+	System.out.println(storage);
+}
 }
         // 6. Pop off as many elements from the stack to fill the Queue with 5
         //    elements. If there aren't enough elements in the Stack to fill the 
         //    queue, fill the queue as much as possible. 
-
+for (int i =0; i < removed; i++) {
+	if (doubles.size() > 0) {
+	queue.add(doubles.pop());
+	}
+}
+System.out.println(queue);
+}
         // 7. Loop until there are no more elements in either the Stack or Queue
         //    and all the elements are printed
         
+
+
     }
 }
