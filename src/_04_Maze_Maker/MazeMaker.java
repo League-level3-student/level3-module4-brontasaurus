@@ -75,14 +75,7 @@ selectNextPath(currentCell);
 }
 
         // D. if all neighbors are visited
-boolean thisIsFalse = true;
-for (int i =0; i < roommates.size(); i++) {
-	if (roommates.get(i).hasBeenVisited() == false) {
-		thisIsFalse = false;
-	}
-}
-
-if ((thisIsFalse) && (uncheckedCells.size() > 0)){ 
+if (uncheckedCells.size() > 0){ 
         // D1. if the stack is not empty
 	
         // D1a. pop a cell from the stack
