@@ -10,56 +10,88 @@ public class MazeMaker {
     private static int cols;
 
     private static Maze maze;
+    static Random ran = new Random();
 
-    private static Random randGen = new Random();
+    //private static Random randGen = new Random();
     private static Stack<Cell> uncheckedCells = new Stack<Cell>();
 
     public static Maze generateMaze(int r, int c) {
         rows = r;
         cols = c;
         maze = new Maze(rows, cols);
+        
 
         // 1. Pick a random cell along the border and remove its exterior wall.
         //    This will be the starting point. Then select a random cell along
         //    the opposite wall and remove its exterior wall. This will be the
         //    finish line.
-        
-        // 2. select a random cell in the maze to start 
-        
-        // 3. call the selectNextPath method with the randomly selected cell
+       
+    	r = ran.nextInt(rows);
+    	c = ran.nextInt(cols);
+while (r != 0 && r != rows-1 && c != 0 && c != cols-1) {
+	r = ran.nextInt(rows);
+	c = ran.nextInt(cols);
+	
+}
+if (r == 0) {
+	maze.getCell(r, c).setNorthWall(false);
+}
+if (r == rows-1) {
+	maze.getCell(r, c).setSouthWall(false);
+}
+if (c == 0) {
+	maze.getCell(r, c).setWestWall(false);
+}
+if (c == cols-1) {
+	maze.getCell(r, c).setEastWall(false);
+}
 
+        // 2. select a random cell in the maze to start 
+       Cell startingCell = maze.getCell(r = ran.nextInt(rows), c = ran.nextInt(cols));
+        // 3. call the selectNextPath method with the randomly selected cell
+selectNextPath(startingCell);
         return maze;
     }
 
     // 4. Complete the selectNextPathMethod
     private static void selectNextPath(Cell currentCell) {
         // A. SET currentCell as visited
-
+currentCell.setBeenVisited(true);
         // B. check for unvisited neighbors using the cell
-
+ArrayList<Cell> roommates = getUnvisitedNeighbors(currentCell);
         // C. if has unvisited neighbors,
-
+if (roommates.size() > 0) {
         // C1. select one at random.
-
+uncheckedCells.add(roommates.get(ran.nextInt(roommates.size())));
         // C2. push it to the stack
 
         // C3. remove the wall between the two cells
-
+removeWalls(currentCell, uncheckedCells.firstElement());
         // C4. make the new cell the current cell and SET it as visited
-
+currentCell = uncheckedCells.firstElement();
+currentCell.setBeenVisited(true);
         // C5. call the selectNextPath method with the current cell
-
+selectNextPath(currentCell);
+}
 
         // D. if all neighbors are visited
+boolean thisIsFalse = true;
+for (int i =0; i < roommates.size(); i++) {
+	if (roommates.get(i).hasBeenVisited() == false) {
+		thisIsFalse = false;
+	}
+}
 
+if ((thisIsFalse) && (uncheckedCells.size() > 0)){ 
         // D1. if the stack is not empty
-
+	
         // D1a. pop a cell from the stack
-
+currentCell = uncheckedCells.pop();
         // D1b. make that the current cell
 
         // D1c. call the selectNextPath method with the current cell
-
+selectNextPath(currentCell);
+}
     }
 
     // This method will check if c1 and c2 are adjacent.
